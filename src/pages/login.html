@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="main">
+      <form class="auth-container">
+        <h2 class="auth-title">Вход</h2>
+
+        <div class="form-group">
+          <label for="login">Логин</label>
+          <input
+            type="text"
+            id="login"
+            name="login"
+            value="Ivanivanov"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="•••"
+            required
+          />
+        </div>
+
+        <div class="button-group">
+          <button class="button-primary" type="submit">Авторизоваться</button>
+
+          <button class="button-secondary">
+            <a href="/">Нет аккаунта?</a>
+          </button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

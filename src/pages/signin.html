@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="main">
+      <form class="auth-container">
+        <h2 class="auth-title">Регистрация</h2>
+
+        <div class="form-group">
+          <label for="email">Почта</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="pochta@yandex.ru"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="login">Логин</label>
+          <input
+            type="text"
+            id="login"
+            name="login"
+            value="Ivanivanov"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="first_name">Имя</label>
+          <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            value="Иван"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="second_name">Фамилия</label>
+          <input
+            type="text"
+            id="second_name"
+            name="second_name"
+            value="Иванов"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Фамилия</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value="+7 (909) 967 30 30"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="•••"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password-again">Пароль (еще раз)</label>
+          <input
+            type="password-again"
+            id="password-again"
+            name="password-again"
+            placeholder="•••"
+            required
+          />
+        </div>
+
+        <div class="button-group">
+          <button class="button-primary" type="submit">Авторизоваться</button>
+
+          <button class="button-secondary">
+            <a href="/">Нет аккаунта?</a>
+          </button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
