@@ -28,6 +28,6 @@ https://dreamy-lolly-c2f25d.netlify.app/src/pages/profile
 
 ## Команды
 
-npm run start - сбилдить и показать preview
-npm run dev - запустить проект в режиме разработке на 3000 порту
+npm run start - сбилдить и показать preview на 3000 порту
+npm run dev - запустить проект в режиме разработке
 npm i - установить зависимости
