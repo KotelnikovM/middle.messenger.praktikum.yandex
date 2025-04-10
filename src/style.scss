@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,500;1,500&display=swap');
+
+:root {
+  font-family: 'Inter', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+#app {
+  font-family: 'Inter', sans-serif;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
+
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+a {
+  all: unset;
+}
+
+h1 {
+  font-size: 60px;
+  color: #2d3436;
+}
+
+h3 {
+  font-size: 20px;
+  color: #636e72;
+  max-width: 500px;
+  line-height: 1.4;
+}
+
+li {
+  display: block;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+  padding: 20px;
+}
+
+.error {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.error > :last-child {
+  margin-top: auto;
+}
+
+.button-secondary {
+  display: block;
+  margin-top: 14px;
+  color: #3369f3;
+}
+
+.button-secondary a {
+  color: #3369f3;
+}
+
+/* Стили для страницы Login и Signin  */
+.auth-container {
+  width: 340px;
+  min-height: 450px;
+  padding: 50px 30px 30px 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-container > :last-child {
+  margin-top: auto;
+}
+
+.auth-title {
+  font-size: 20px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 12px;
+  display: block;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+input {
+  all: unset;
+  font-size: 15px;
+  width: 100%;
+  padding-bottom: 7px;
+  outline: none !important;
+  border-bottom: 1px solid #3369f3;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: 0;
+  box-shadow: 0 2px 1px -1px #007bff;
+}
+
+.button-primary {
+  width: 100%;
+  padding: 12px;
+  background: #3369f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.button-primary:hover {
+  background: #2955c4;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+
+.register-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.button-group {
+  margin-top: 30px !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Стили для страницы Profile */
+
+.profile {
+  max-width: 510px;
+  margin: 2rem auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 120px;
+  margin: 0 auto 20px;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  display: block;
+}
+
+.avatar-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+}
+
+.separator {
+  display: block;
+  margin: 10px 0;
+  border: 1px solid #eaeaea;
+}
+
+.profile-button {
+  display: block;
+  text-align: left;
+  margin: 0;
+}
+
+.profile-name {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.profile-field-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 5px;
+}
+
+.profile-field-group label {
+  width: 100%;
+  flex: 0 0 120px;
+  color: #666;
+  font-size: 14px;
+  text-align: left;
+}
+
+.profile-field-group input {
+  all: unset;
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+  text-align: right;
+}
