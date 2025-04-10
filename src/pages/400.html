@@ -2,18 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,300;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.scss" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Vite + TS</title>
   </head>
   <body>
-    <main class="main">
-      <section class="error">
-        <h1>404</h1>
-        <p>Не туда попали</p>
-        <button class="button-secondary">
-          <a href="/">Назад к чатам</a>
-        </button>
-      </section>
-    </main>
+    <main class="main">{{> error_page type="404" text="Не туда попали"}}</main>
   </body>
 </html>

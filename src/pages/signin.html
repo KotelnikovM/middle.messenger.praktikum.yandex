@@ -2,98 +2,50 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,300;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.scss" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Vite + TS</title>
   </head>
   <body>
     <main class="main">
       <form class="auth-container">
         <h2 class="auth-title">Регистрация</h2>
 
-        <div class="form-group">
-          <label for="email">Почта</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value="pochta@yandex.ru"
-            required
-          />
-        </div>
+        {{> form_input label="Почта" type="email" value="pochta@yandex.ru"
+        id="email" name="email"}}
+        <!-- /// -->
+        {{> form_input label="Логин" type="text" value="Ivanivanov" id="login"
+        name="login"}}
+        <!-- /// -->
+        {{> form_input label="Имя" type="text" value="Иван" id="first_name"
+        name="first_name"}}
+        <!-- /// -->
 
-        <div class="form-group">
-          <label for="login">Логин</label>
-          <input
-            type="text"
-            id="login"
-            name="login"
-            value="Ivanivanov"
-            required
-          />
-        </div>
+        {{> form_input label="Фамилия" type="text" value="Иванов"
+        id="second_name" name="second_name"}}
+        <!-- /// -->
 
-        <div class="form-group">
-          <label for="first_name">Имя</label>
-          <input
-            type="text"
-            id="first_name"
-            name="first_name"
-            value="Иван"
-            required
-          />
-        </div>
+        {{> form_input label="Телефон" type="tel" value="+7(909)967-30-30"
+        id="phone" name="phone"}}
+        <!-- /// -->
 
-        <div class="form-group">
-          <label for="second_name">Фамилия</label>
-          <input
-            type="text"
-            id="second_name"
-            name="second_name"
-            value="Иванов"
-            required
-          />
-        </div>
+        {{> form_input label="Пароль" type="password" value="пароль"
+        id="password" name="password"}}
+        <!-- /// -->
 
-        <div class="form-group">
-          <label for="phone">Фамилия</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value="+7 (909) 967 30 30"
-            required
-          />
-        </div>
+        {{> form_input label="Пароль (еще раз)" type="password" value="пароль"
+        id="password-again" name="password-again"}}
+        <!-- /// -->
 
-        <div class="form-group">
-          <label for="password">Пароль</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="•••"
-            required
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="password-again">Пароль (еще раз)</label>
-          <input
-            type="password-again"
-            id="password-again"
-            name="password-again"
-            placeholder="•••"
-            required
-          />
-        </div>
-
-        <div class="button-group">
-          <button class="button-primary" type="submit">Авторизоваться</button>
-
-          <button class="button-secondary">
-            <a href="/">Нет аккаунта?</a>
-          </button>
-        </div>
+        {{> form_button_group primary="Зарегистрироваться" secondary="Нет
+        аккаунта?"}}
       </form>
     </main>
   </body>
