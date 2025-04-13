@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,300;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.scss" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <main class="main">
+      <div class="profile">
+        <div class="avatar-wrapper">
+          <img
+            src="https://via.placeholder.com/120"
+            alt="Аватар"
+            class="avatar"
+          />
+
+          <input type="file" class="avatar-input" accept="image/*" />
+        </div>
+
+        <h1 class="profile-name">Иван</h1>
+
+        {{> profile_input label="Почта" type="email" value="pochta@yandex.ru"
+        name="email"}}
+        <hr class="separator" />
+
+        {{> profile_input label="Логин" type="text" value="Ivanivanov"
+        name="login"}}
+        <hr class="separator" />
+
+        {{> profile_input label="Имя" type="text" value="Иван"
+        name="first_name"}}
+        <hr class="separator" />
+
+        {{> profile_input label="Фамилия" type="text" value="Иванов"
+        name="second_name"}}
+        <hr class="separator" />
+
+        {{> profile_input label="Имя в чате" type="text" value="Иван"
+        name="display_name"}}
+
+        <hr class="separator" />
+
+        {{> profile_input label="Телефон" type="tel" value="+7(909)967-30-30"
+        name="phone"}}
+        <hr class="separator" />
+
+        <div class="button-group">
+          <button class="button-secondary profile-button">
+            Изменить данные
+          </button>
+          <hr class="separator" />
+          <button class="button-secondary profile-button">
+            Изменить пароль
+          </button>
+          <hr class="separator" />
+          <button class="button-secondary profile-button">Выйти</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
