@@ -27,7 +27,7 @@ export class Component {
     this.props = this._makePropsProxy(props);
   }
 
-  _createResources() {
+  private _createResources() {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
   }
