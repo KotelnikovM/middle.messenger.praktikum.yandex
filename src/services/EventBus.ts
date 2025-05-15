@@ -1,5 +1,5 @@
 export type Events = Record<string, unknown>;
-export type Listener<Data = any> = Data extends any[]
+export type Listener<Data = unknown> = Data extends unknown[]
   ? (...args: Data) => void
   : (arg: Data) => void;
 
@@ -37,7 +37,7 @@ export class EventBus<EventsData extends Events> {
   ): void {
     const handlers = this.listeners.get(event);
     if (handlers) {
-      handlers.forEach((fn) => fn.apply(undefined, args as unknown[]));
+      handlers.forEach((fn) => fn.apply(undefined, [args]));
     }
   }
 }
