@@ -1,5 +1,8 @@
-const test = document.getElementById('test');
+import { Button } from './components/button/button';
+import { renderApp } from './utils/renderApp';
+
+const test = document.getElementById('app');
 
 if (test) {
-  test.innerHTML = 'Hello world';
+  renderApp('#app', new Button());
 }

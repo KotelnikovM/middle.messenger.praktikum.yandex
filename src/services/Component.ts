@@ -1,14 +1,32 @@
 import { makeUUID } from '../utils/makeUUID';
-import { deepEqual } from '../utils/deepEqual';
-import Handlebars from 'handlebars';
-import { EventBus } from './EventBus';
+import EventBus from './EventBus';
 
 type Tag = keyof HTMLElementTagNameMap;
 export class Component {
+  static EVENTS = {
+    INIT: 'init',
+    CDM: 'flow:component-did-mount',
+    CDU: 'flow:component-did-update',
+    RENDER: 'flow:render',
+  } as const;
+
+  protected _element: HTMLElement | null = null;
+
+  private readonly _eventBus: EventBus;
+
   private _id: string;
+
   private _tagName: Tag = 'div';
+
   constructor() {
+    this._eventBus = new EventBus();
     this._id = makeUUID();
+  }
+
+  get element() {
+    if (!this._element) return;
+
+    return this._element;
   }
 
   private _render() {}
@@ -16,6 +34,10 @@ export class Component {
   protected render(): string {
     return '';
   }
+
+  // getContent(): HTMLElement {
+  //   return this.element;
+  // }
 }
 
 // export interface BaseProps {

@@ -1,43 +1,35 @@
-export type Events = Record<string, unknown>;
-export type Listener<Data = unknown> = Data extends unknown[]
-  ? (...args: Data) => void
-  : (arg: Data) => void;
+export default class EventBus {
+  private listeners: Record<string, any[]>;
 
-export class EventBus<EventsData extends Events> {
-  private listeners = new Map<keyof EventsData, Set<Listener>>();
-
-  on<Key extends keyof EventsData>(
-    event: Key,
-    callback: Listener<EventsData[Key]>
-  ): void {
-    const handlers = this.listeners.get(event);
-    if (!handlers) {
-      this.listeners.set(event, new Set([callback]));
-    } else {
-      handlers.add(callback);
-    }
+  constructor() {
+    this.listeners = {};
   }
 
-  off<Key extends keyof EventsData>(
-    event: Key,
-    callback: Listener<EventsData[Key]>
-  ): void {
-    const handlers = this.listeners.get(event);
-    if (!handlers) {
-      throw new Error(`No listeners for event "${String(event)}"`);
+  on(event: string, callback: any): void {
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
     }
-    handlers.delete(callback);
+
+    this.listeners[event].push(callback);
   }
 
-  emit<Key extends keyof EventsData>(
-    event: Key,
-    ...args: EventsData[Key] extends unknown[]
-      ? EventsData[Key]
-      : [EventsData[Key]]
-  ): void {
-    const handlers = this.listeners.get(event);
-    if (handlers) {
-      handlers.forEach((fn) => fn.apply(undefined, [args]));
+  off(event: string, callback: any): void {
+    if (!this.listeners[event]) {
+      throw new Error(`Нет события: ${event}`);
     }
+
+    this.listeners[event] = this.listeners[event].filter(
+      (listener) => listener !== callback,
+    );
+  }
+
+  emit(event: string, ...args: unknown[]): void {
+    if (!this.listeners[event]) {
+      throw new Error(`Нет события: ${event}`);
+    }
+
+    this.listeners[event].forEach((listener) => {
+      listener(...args);
+    });
   }
 }
