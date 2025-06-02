@@ -3,7 +3,11 @@ import { ObjectI } from './types';
 const isObject = (object: object) => {
   return object != null && typeof object === 'object';
 };
-export const deepEqual = (object1: ObjectI, object2: ObjectI): boolean => {
+export const deepEqual = (object1?: ObjectI, object2?: ObjectI): boolean => {
+  if (typeof object1 === 'undefined' || typeof object2 === 'undefined') {
+    return false;
+  }
+
   const objKeys1 = Object.keys(object1);
   const objKeys2 = Object.keys(object2);
 

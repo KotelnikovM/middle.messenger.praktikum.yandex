@@ -1,13 +1,15 @@
-import { Component } from '../../services/Component';
+import { Component } from '../../services/component/Component';
 
 export class Button extends Component {
+  constructor(props: object) {
+    super('button', {
+      ...props,
+    });
+  }
+
   render(): string {
     return `
-      <button class="button">
-        <span class="button__text">
-          <slot></slot>
-        </span>
-      </button>
+        {{{text}}}
     `;
   }
 }

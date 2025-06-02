@@ -1,8 +1,10 @@
-import { makeUUID } from '../utils/makeUUID';
-import EventBus from './EventBus';
+import Handlebars from 'handlebars';
+import { makeUUID } from '../../utils/makeUUID';
+import EventBus from '../EventBus';
+import { deepEqual } from '../../utils/deepEqual';
+import { BlockProps, Children, Tag } from './types';
 
-type Tag = keyof HTMLElementTagNameMap;
-export class Component {
+export class Component<T extends BlockProps = BlockProps> {
   static EVENTS = {
     INIT: 'init',
     CDM: 'flow:component-did-mount',
@@ -11,33 +13,199 @@ export class Component {
   } as const;
 
   protected _element: HTMLElement | null = null;
-
   private readonly _eventBus: EventBus;
-
   private _id: string;
-
   private _tagName: Tag = 'div';
+  props: BlockProps = {} as T;
+  children: Children = {};
 
-  constructor() {
+  constructor(_tagName: Tag, propsWithChildren = {}) {
     this._eventBus = new EventBus();
+    const { props, children } = this._getPropsAndChildren(propsWithChildren);
+
+    this.props = this._makePropsProxy(props);
+    this.children = children;
     this._id = makeUUID();
+    this._tagName = _tagName;
+
+    this._registerEvents(this._eventBus);
+    this._eventBus.emit(Component.EVENTS.INIT);
+  }
+
+  _registerEvents(eventBus: EventBus) {
+    eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Component.EVENTS.CDM, this._componentDidMount.bind(this));
+    eventBus.on(Component.EVENTS.CDU, this._componentDidUpdate.bind(this));
+    eventBus.on(Component.EVENTS.RENDER, this._render.bind(this));
+  }
+
+  _createResources() {
+    const props = this.props;
+    const tagName = this._tagName;
+    this._element = this._createDocumentElement(tagName);
+    if (typeof props.className === 'string') {
+      const classes = props.className.split(' ');
+      this._element?.classList.add(...classes);
+    }
+  }
+
+  init() {
+    this._createResources();
+    this._eventBus.emit(Component.EVENTS.RENDER);
+  }
+
+  _getPropsAndChildren(propsAndChildrens: { [s: string]: unknown }) {
+    const children: Children = {};
+    const props: { [key: string]: unknown } = {};
+
+    Object.entries(propsAndChildrens).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((obj) => {
+          if (obj instanceof Component) {
+            children[key] = obj;
+          } else {
+            props[key] = obj;
+          }
+        });
+
+        return;
+      }
+
+      if (value instanceof Component) {
+        children[key] = value;
+      } else {
+        props[key] = value;
+      }
+    });
+    return { props, children };
+  }
+
+  _makePropsProxy(props: { [key: string]: unknown }) {
+    const eventBus = this._eventBus;
+    const emitBinded = eventBus.emit.bind(eventBus);
+
+    return new Proxy(props, {
+      get(target: { [key: string]: object }, prop: string) {
+        const value = target[prop];
+        return typeof value === 'function' ? value.bind(target) : value;
+      },
+
+      set(target: { [key: string]: object }, prop: string, value: object) {
+        const oldTarget = { ...target };
+        target[prop] = value;
+        emitBinded(Component.EVENTS.CDU, oldTarget, target);
+        return true;
+      },
+
+      deleteProperty() {
+        throw new Error('No access');
+      },
+    });
+  }
+
+  _createDocumentElement(tagName: string): HTMLTemplateElement {
+    return document.createElement(tagName) as HTMLTemplateElement;
   }
 
   get element() {
-    if (!this._element) return;
-
     return this._element;
   }
 
-  private _render() {}
+  _addEvents() {
+    const { events = {} } = this.props;
+
+    Object.keys(events).forEach((eventName) => {
+      this._element?.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  _removeEvents() {
+    const { events = {} } = this.props;
+
+    Object.keys(events).forEach((eventName) => {
+      this._element?.removeEventListener(eventName, events[eventName]);
+    });
+  }
+
+  private _compile() {
+    const propsAndStubs: Record<string, unknown> = { ...this.props };
+
+    Object.entries(this.children).forEach(([key, child]) => {
+      if (Array.isArray(child)) {
+        propsAndStubs[key] = child.map(
+          (component) => `<div data-id="${component._id}"></div>`
+        );
+      } else {
+        propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
+      }
+    });
+
+    const fragment = this._createDocumentElement('template');
+    const template = Handlebars.compile(this.render());
+    fragment.innerHTML = template(propsAndStubs);
+
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((component) => {
+          const stub = fragment.content.querySelector(
+            `[data-id="${component._id}"]`
+          );
+          stub?.replaceWith(component.getContent());
+        });
+      } else {
+        const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+        stub?.replaceWith(child.getContent());
+      }
+    });
+
+    return fragment.content;
+  }
+
+  private _componentDidMount() {
+    this.componentDidMount();
+
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount();
+    });
+  }
+
+  protected componentDidMount() {}
+
+  dispatchComponentDidMount(): void {
+    this._eventBus.emit(Component.EVENTS.CDM);
+  }
+
+  private _componentDidUpdate(oldProps?: object, newProps?: object) {
+    const isNeedRender = this.componentDidUpdate(oldProps, newProps);
+    if (isNeedRender) {
+      this._render();
+    }
+  }
+
+  componentDidUpdate(oldProps?: object, newProps?: object): boolean {
+    return !deepEqual(oldProps, newProps);
+  }
+
+  private _render() {
+    this._removeEvents();
+    const block = this._compile();
+
+    if (this._element?.childNodes.length === 0) {
+      this._element.appendChild(block);
+    } else {
+      this._element?.replaceChildren(block);
+    }
+
+    this._addEvents();
+  }
 
   protected render(): string {
     return '';
   }
 
-  // getContent(): HTMLElement {
-  //   return this.element;
-  // }
+  getContent() {
+    return this.element as HTMLElement;
+  }
 }
 
 // export interface BaseProps {

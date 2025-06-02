@@ -1,15 +1,10 @@
-// import { Component } from '../services/Component';
+import { Component } from '../services/component/Component';
 
-export function renderApp(
-  query: string,
-  // component: Component
-) {
-  const root = document.querySelector(query);
+export function renderApp(query: string, component: Component) {
+  const root = document.querySelector<HTMLElement>(query);
+  root?.append(component.getContent() as Node);
 
   console.log(root);
 
-  if (root) {
-    root.innerHTML = '';
-    // root.appendChild(component.getContent());
-  }
+  return root;
 }
